@@ -53,10 +53,19 @@ python run_pipeline.py
 This data pipeline fulfills the following business objectives for autonomous vehicle diagnostics:
 
 1. **Maintenance Prioritization**: Identify vehicles with the highest number of diagnostic trouble codes (DTCs) to prioritize maintenance and reduce downtime.
-2. **Failure Pattern Analysis**: Determine the most common DTC codes across the fleet to inform software updates and hardware improvements.
-3. **Performance Monitoring**: Calculate average DTC counts per vehicle to monitor overall fleet health and detect trends.
+2. **Failure Pattern Analysis**: Determine the most common DTC codes and severity distributions across the fleet to inform software updates and hardware improvements.
+3. **Performance Monitoring**: Calculate average DTC counts per vehicle and by model to monitor overall fleet health and detect trends.
+4. **Software Version Analysis**: Analyze DTC frequencies by software version to identify problematic releases.
+5. **Sensor Data Insights**: Examine average sensor readings associated with DTC codes for diagnostic insights.
 
-The pipeline outputs these metrics after processing, providing actionable insights for AV operations teams.
+## Business Queries
+The `sql/business_queries.sql` file contains SQL queries that implement these business objectives. To execute the queries:
+
+```bash
+python run_queries.py
+```
+
+This will run all queries against the SQLite database and display the results, providing actionable insights for AV operations teams.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
