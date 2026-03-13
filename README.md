@@ -49,8 +49,14 @@ python run_pipeline.py
 - **DTC Logs**: CSV file containing diagnostic trouble codes with timestamps and severity levels
 - **Vehicle Registry**: JSON file with vehicle information including model, software version, and registration details
 
-## Output
-The processed data is stored in an SQLite database at `data/warehouse/av_diagnostics.db`. The database contains a single table with all vehicle diagnostic information ready for analysis.
+## Business Objectives
+This data pipeline fulfills the following business objectives for autonomous vehicle diagnostics:
+
+1. **Maintenance Prioritization**: Identify vehicles with the highest number of diagnostic trouble codes (DTCs) to prioritize maintenance and reduce downtime.
+2. **Failure Pattern Analysis**: Determine the most common DTC codes across the fleet to inform software updates and hardware improvements.
+3. **Performance Monitoring**: Calculate average DTC counts per vehicle to monitor overall fleet health and detect trends.
+
+The pipeline outputs these metrics after processing, providing actionable insights for AV operations teams.
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
