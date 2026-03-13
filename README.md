@@ -52,11 +52,13 @@ python run_pipeline.py
 ## Business Objectives
 This data pipeline fulfills the following business objectives for autonomous vehicle diagnostics:
 
-1. **Maintenance Prioritization**: Identify vehicles with the highest number of diagnostic trouble codes (DTCs) to prioritize maintenance and reduce downtime.
-2. **Failure Pattern Analysis**: Determine the most common DTC codes and severity distributions across the fleet to inform software updates and hardware improvements.
-3. **Performance Monitoring**: Calculate average DTC counts per vehicle and by model to monitor overall fleet health and detect trends.
-4. **Software Version Analysis**: Analyze DTC frequencies by software version to identify problematic releases.
-5. **Sensor Data Insights**: Examine average sensor readings associated with DTC codes for diagnostic insights.
+1. **Maintenance Prioritization**: Identify vehicles with the highest number of diagnostic trouble codes (DTCs) to prioritize maintenance and reduce downtime. Also identifies vehicles with zero DTCs for benchmarking.
+2. **Failure Pattern Analysis**: Determine the most common DTC codes, severity distributions, and model-specific failure patterns across the fleet to inform software updates and hardware improvements.
+3. **Performance Monitoring**: Calculate average DTC counts per vehicle and by model to monitor overall fleet health and detect trends. Includes monthly and daily trend analysis.
+4. **Software Version Analysis**: Analyze DTC frequencies and severity distributions by software version to identify problematic releases.
+5. **Sensor Data Insights**: Examine average sensor readings associated with DTC codes, reading ranges by severity, and detect anomalous sensor readings for diagnostic insights.
+6. **Temporal Analysis**: Analyze DTC patterns by time of day and compare weekday vs weekend occurrences to understand operational patterns.
+7. **Predictive Maintenance**: Identify vehicles showing increasing DTC trends to enable proactive maintenance scheduling.
 
 ## Business Queries
 The `sql/business_queries.sql` file contains SQL queries that implement these business objectives. To execute the queries:
