@@ -195,7 +195,7 @@ def main():
                     execute_query("""
                         INSERT INTO fact_diagnostics (log_id, vehicle_id, dtc_code, timestamp, severity, sensor_reading)
                         VALUES (?, ?, ?, ?, ?, ?)
-                    """, (next_id, vehicle_id, dtc_code, timestamp_full.isoformat(), severity, sensor_reading))
+                    """, (next_id, vehicle_id, dtc_code, timestamp_full.strftime('%Y-%m-%d %H:%M:%S'), severity, sensor_reading))
 
                     st.success("✅ Record added successfully!")
                     st.rerun()
