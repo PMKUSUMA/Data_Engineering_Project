@@ -27,7 +27,7 @@ The project generates synthetic data (15,000 rows) to simulate real-world AV dia
 
 2. Install dependencies:
    ```bash
-   pip install pandas numpy
+   pip install -r requirements.txt
    ```
 
 ## Usage
@@ -44,6 +44,20 @@ python run_pipeline.py
 4. **Data Cleaning**: Removes duplicates, handles missing values, and standardizes data formats
 5. **Feature Addition**: Calculates additional metrics such as failure rates and diagnostic patterns
 6. **Data Loading**: Stores the processed data in `data/warehouse/av_diagnostics.db`
+
+## Dashboard
+Launch the interactive dashboard to visualize business insights and manage data:
+
+```bash
+streamlit run dashboard.py
+```
+
+The dashboard provides:
+- **Overview**: Key metrics and severity distribution charts
+- **Maintenance**: Vehicle prioritization and DTC frequency analysis
+- **Performance**: Model-wise performance monitoring
+- **Software Analysis**: Version-specific insights and sensor data visualization
+- **Add Data**: Forms to insert new DTC records and vehicles (updates reflected in database)
 
 ## Data Sources
 - **DTC Logs**: CSV file containing diagnostic trouble codes with timestamps and severity levels
