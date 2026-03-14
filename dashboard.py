@@ -19,13 +19,15 @@ def run_query(query):
 
 def execute_query(query, params=None):
     conn = get_db_connection()
-    cursor = conn.cursor()
-    if params:
-        cursor.execute(query, params)
-    else:
-        cursor.execute(query)
-    conn.commit()
-    conn.close()
+    try:
+        cursor = conn.cursor()
+        if params:
+            cursor.execute(query, list(params))  # Convert to list to avoid int-to-bytes TypeError
+        else:
+            cursor.execute(query)
+        conn.commit()
+    finally:
+        conn.close()  # Always close, even on error
 
 # Business Queries
 QUERIES = {
@@ -188,17 +190,24 @@ def main():
 
             if submitted:
                 try:
-                    # Get next log_id
-                    max_id_df = run_query("SELECT MAX(log_id) as max_id FROM fact_diagnostics")
-                    next_id = (max_id_df.iloc[0,0] or 0) + 1
+                    # Cast log_id to INTEGER in SQL to handle BLOB-stored IDs
+                    max_id_df = run_query("SELECT MAX(CAST(log_id AS INTEGER)) as max_id FROM fact_diagnostics")
+                    max_id = max_id_df.iloc[0, 0]
+                    # Handle bytes fallback just in case
+                    if isinstance(max_id, bytes):
+                        max_id = int.from_bytes(max_id, byteorder='little')
+                    next_id = int(max_id or 0) + 1
+
+                    timestamp_str = timestamp_full.strftime('%Y-%m-%d %H:%M:%S')
+                    params = [next_id, str(vehicle_id), str(dtc_code), timestamp_str, str(severity), float(sensor_reading)]
 
                     execute_query("""
                         INSERT INTO fact_diagnostics (log_id, vehicle_id, dtc_code, timestamp, severity, sensor_reading)
                         VALUES (?, ?, ?, ?, ?, ?)
-                    """, (next_id, vehicle_id, dtc_code, timestamp_full.strftime('%Y-%m-%d %H:%M:%S'), severity, sensor_reading))
+                    """, params)
 
                     st.success("✅ Record added successfully!")
-                    st.rerun()
+                    # st.rerun()
                 except Exception as e:
                     st.error(f"❌ Error adding record: {e}")
 
@@ -217,10 +226,10 @@ def main():
                     execute_query("""
                         INSERT INTO dim_vehicles (vehicle_id, model, sw_version)
                         VALUES (?, ?, ?)
-                    """, (new_vehicle_id, model, sw_version))
+                    """, [str(new_vehicle_id), str(model), str(sw_version)])
 
                     st.success("✅ Vehicle added successfully!")
-                    st.rerun()
+                    # st.rerun()
                 except Exception as e:
                     st.error(f"❌ Error adding vehicle: {e}")
 
