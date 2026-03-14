@@ -17,6 +17,10 @@ The project generates synthetic data (15,000 rows) to simulate real-world AV dia
 - Required Python packages:
   - pandas
   - numpy
+## NOTE:
+- A Python environment should be configured(virtual python environment should be created)
+- 1.Environment type: system
+- 2.Version: 3.9.6.final.0
 
 ## Installation
 1. Clone the repository:
