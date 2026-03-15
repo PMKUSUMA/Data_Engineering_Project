@@ -54,6 +54,7 @@ Launch the interactive dashboard to visualize business insights and manage data:
 
 ```bash
 streamlit run dashboard.py
+if python environment used command is python -m streamlit run dashboard.py
 ```
 
 The dashboard provides:
